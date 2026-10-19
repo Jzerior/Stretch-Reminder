@@ -34,10 +34,25 @@ public partial class SettingsWindow : Window
         _settingsService = settingsService;
         _timerService = timerService;
 
-        _timerService.OnTick += UpdateCountdownText;
-
         LoadCurrentSettings();
-        UpdateCountdownText();
+
+        IsVisibleChanged += (s, e) =>
+        {
+            if (IsVisible)
+            {
+                UpdateCountdownText();
+                _timerService.OnTick += UpdateCountdownText;
+            }
+            else
+            {
+                _timerService.OnTick -= UpdateCountdownText;
+            }
+        };
+
+        Closed += (s, e) =>
+        {
+            _timerService.OnTick -= UpdateCountdownText;
+        };
 
         Loaded += (s, e) =>
         {
@@ -61,18 +76,6 @@ public partial class SettingsWindow : Window
         var helper = new WindowInteropHelper(this);
         var hwnd = helper.Handle;
         if (hwnd == IntPtr.Zero) return;
-
-        try
-        {
-            using var icon = IconHelper.CreateAppIcon();
-            Icon = Imaging.CreateBitmapSourceFromHIcon(
-                icon.Handle,
-                Int32Rect.Empty,
-                BitmapSizeOptions.FromEmptyOptions());
-        }
-        catch
-        {
-        }
 
         try
         {
@@ -119,6 +122,8 @@ public partial class SettingsWindow : Window
 
     private void UpdateCountdownText()
     {
+        if (!IsVisible) return;
+
         Dispatcher.Invoke(() =>
         {
             var remaining = _timerService.TimeRemaining;
@@ -245,15 +250,13 @@ public partial class SettingsWindow : Window
 
     private void Save_Click(object sender, RoutedEventArgs e)
     {
-        var settings = new ReminderSettings
-        {
-            IntervalMinutes = (int)IntervalSlider.Value,
-            Message = MessageTextBox.Text.Trim(),
-            VideoPath = string.IsNullOrWhiteSpace(_selectedVideoPath) ? null : _selectedVideoPath,
-            VideoVolume = VolumeSlider.Value / 100.0,
-            MuteVideo = MuteVideoCheckBox.IsChecked == true,
-            AutoStartWithWindows = AutoStartCheckBox.IsChecked == true
-        };
+        var settings = _settingsService.CurrentSettings;
+        settings.IntervalMinutes = (int)IntervalSlider.Value;
+        settings.Message = MessageTextBox.Text.Trim();
+        settings.VideoPath = string.IsNullOrWhiteSpace(_selectedVideoPath) ? null : _selectedVideoPath;
+        settings.VideoVolume = VolumeSlider.Value / 100.0;
+        settings.MuteVideo = MuteVideoCheckBox.IsChecked == true;
+        settings.AutoStartWithWindows = AutoStartCheckBox.IsChecked == true;
 
         _settingsService.SaveSettings(settings);
         _timerService.Reset();

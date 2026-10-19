@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:loc="clr-namespace:StretchReminder.App.Localization"
         Title="{x:Static loc:Strings.SettingsWindowTitle}"
+        Icon="/Resources/app.ico"
         Width="840"
         MinWidth="740" MinHeight="550"
         SizeToContent="Height"
