@@ -1,7 +1,7 @@
 <Window x:Class="StretchReminder.App.Views.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:loc="clr-namespace:StretchReminder.Core.Localization;assembly=StretchReminder.Core"
+        xmlns:loc="clr-namespace:StretchReminder.App.Localization"
         Title="{x:Static loc:Strings.SettingsWindowTitle}"
         Width="840"
         MinWidth="740" MinHeight="550"

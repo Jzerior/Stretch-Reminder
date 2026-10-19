@@ -1,12 +1,12 @@
 using System.Globalization;
 using System.Resources;
 
-namespace StretchReminder.Core.Localization;
+namespace StretchReminder.App.Localization;
 
 public static class Strings
 {
     private static readonly ResourceManager ResourceManager =
-        new("StretchReminder.Core.Resources.Strings", typeof(Strings).Assembly);
+        new("StretchReminder.App.Resources.Strings", typeof(Strings).Assembly);
 
     public static CultureInfo Culture { get; set; } = CultureInfo.CurrentUICulture;
 

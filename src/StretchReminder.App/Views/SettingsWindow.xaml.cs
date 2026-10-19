@@ -5,7 +5,7 @@ using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using StretchReminder.App.Services;
-using StretchReminder.Core.Localization;
+using StretchReminder.App.Localization;
 using StretchReminder.Core.Models;
 
 namespace StretchReminder.App.Views;

@@ -50,6 +50,10 @@ public class SettingsService : ISettingsService
                 if (loaded != null)
                 {
                     CurrentSettings = loaded;
+                    if (string.IsNullOrWhiteSpace(CurrentSettings.Message))
+                    {
+                        CurrentSettings.Message = Localization.Strings.DefaultReminderMessage;
+                    }
                     CurrentSettings.AutoStartWithWindows = IsAutoStartEnabled();
                     return;
                 }
@@ -60,8 +64,11 @@ public class SettingsService : ISettingsService
             System.Diagnostics.Debug.WriteLine($"Błąd wczytywania ustawień: {ex.Message}");
         }
 
-        CurrentSettings = new ReminderSettings();
-        CurrentSettings.AutoStartWithWindows = IsAutoStartEnabled();
+        CurrentSettings = new ReminderSettings
+        {
+            Message = Localization.Strings.DefaultReminderMessage,
+            AutoStartWithWindows = IsAutoStartEnabled()
+        };
     }
 
     public void SaveSettings(ReminderSettings settings)

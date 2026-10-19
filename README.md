@@ -40,20 +40,20 @@ A Windows desktop utility running in the background system tray that regularly r
 Stretch-Reminder/
 ├── StretchReminder.sln
 ├── src/
-│   ├── StretchReminder.Core/               # Interfaces, models, and localization resources
+│   ├── StretchReminder.Core/               # Domain models and plugin contracts
 │   │   ├── Models/
 │   │   │   └── ReminderSettings.cs
-│   │   ├── Plugins/
-│   │   │   ├── IReminderPlugin.cs
-│   │   │   ├── IActivityDetector.cs
-│   │   │   └── IPluginContext.cs
-│   │   ├── Localization/
-│   │   │   └── Strings.cs                  # ResourceManager facade
-│   │   └── Resources/
-│   │       ├── Strings.resx                # Default resources (English)
-│   │       └── Strings.pl.resx             # Polish resources
+│   │   └── Plugins/
+│   │       ├── IReminderPlugin.cs
+│   │       ├── IActivityDetector.cs
+│   │       └── IPluginContext.cs
 │   │
 │   └── StretchReminder.App/                # Main WPF Application (.NET 9)
+│       ├── Localization/
+│       │   └── Strings.cs                  # ResourceManager facade
+│       ├── Resources/
+│       │   ├── Strings.resx                # Default resources (English)
+│       │   └── Strings.pl.resx             # Polish resources
 │       ├── Services/
 │       │   ├── SettingsService.cs          # JSON configuration and registry autostart
 │       │   ├── ReminderTimerService.cs     # Countdown timer and scheduling

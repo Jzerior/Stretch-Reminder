@@ -2,7 +2,7 @@ using System.Threading;
 using System.Windows;
 using StretchReminder.App.Services;
 using StretchReminder.App.Views;
-using StretchReminder.Core.Localization;
+using StretchReminder.App.Localization;
 
 namespace StretchReminder.App;
 

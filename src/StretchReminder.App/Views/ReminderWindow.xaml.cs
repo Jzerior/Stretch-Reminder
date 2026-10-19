@@ -1,6 +1,6 @@
 using System.IO;
 using System.Windows;
-using StretchReminder.Core.Localization;
+using StretchReminder.App.Localization;
 using StretchReminder.Core.Models;
 
 namespace StretchReminder.App.Views;

@@ -1,6 +1,6 @@
 using System.Drawing;
 using System.Windows.Forms;
-using StretchReminder.Core.Localization;
+using StretchReminder.App.Localization;
 
 namespace StretchReminder.App.Services;
 
