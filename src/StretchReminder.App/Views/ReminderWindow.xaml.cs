@@ -1,5 +1,6 @@
 using System.IO;
 using System.Windows;
+using StretchReminder.Core.Localization;
 using StretchReminder.Core.Models;
 
 namespace StretchReminder.App.Views;
@@ -20,12 +21,11 @@ public partial class ReminderWindow : Window
 
     private void ApplySettings()
     {
-        if (!string.IsNullOrWhiteSpace(_settings.Message))
-        {
-            MessageTextBlock.Text = _settings.Message;
-        }
+        MessageTextBlock.Text = !string.IsNullOrWhiteSpace(_settings.Message)
+            ? _settings.Message
+            : Strings.DefaultReminderMessage;
 
-        SnoozeButton.Content = $"⏰ Odłóż o {_settings.SnoozeMinutes} min";
+        SnoozeButton.Content = Strings.SnoozeButton(_settings.SnoozeMinutes);
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)

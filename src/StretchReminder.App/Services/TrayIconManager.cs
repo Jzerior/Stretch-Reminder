@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.Windows.Forms;
+using StretchReminder.Core.Localization;
 
 namespace StretchReminder.App.Services;
 
@@ -28,7 +29,7 @@ public class TrayIconManager : IDisposable
         _notifyIcon = new NotifyIcon
         {
             Icon = IconHelper.CreateAppIcon(),
-            Text = "Stretch Reminder",
+            Text = Strings.AppName,
             Visible = true
         };
 
@@ -48,14 +49,14 @@ public class TrayIconManager : IDisposable
     {
         var contextMenu = new ContextMenuStrip();
 
-        var openItem = new ToolStripMenuItem("⚙️ Ustawienia", null, (s, e) => _openSettingsAction());
+        var openItem = new ToolStripMenuItem(Strings.TraySettings, null, (s, e) => _openSettingsAction());
         openItem.Font = new Font(openItem.Font, FontStyle.Bold);
 
-        var triggerNowItem = new ToolStripMenuItem("🏃 Przypomnij teraz", null, (s, e) => _triggerNowAction());
-        var snooze1hItem = new ToolStripMenuItem("⏸️ Odłóż o 1 godzinę", null, (s, e) => _snoozeAction(60));
-        var resetItem = new ToolStripMenuItem("🔄 Resetuj odliczanie", null, (s, e) => _resetAction());
+        var triggerNowItem = new ToolStripMenuItem(Strings.TrayRemindNow, null, (s, e) => _triggerNowAction());
+        var snooze1hItem = new ToolStripMenuItem(Strings.TraySnooze1Hour, null, (s, e) => _snoozeAction(60));
+        var resetItem = new ToolStripMenuItem(Strings.TrayResetTimer, null, (s, e) => _resetAction());
 
-        var exitItem = new ToolStripMenuItem("❌ Wyjdź", null, (s, e) => _exitAction());
+        var exitItem = new ToolStripMenuItem(Strings.TrayExit, null, (s, e) => _exitAction());
 
         contextMenu.Items.Add(openItem);
         contextMenu.Items.Add(new ToolStripSeparator());
@@ -70,7 +71,6 @@ public class TrayIconManager : IDisposable
 
     public void UpdateTooltip(string text)
     {
-        // Limit tekstu powiadomienia w zasobniku Windows to 63 znaki
         if (text.Length > 63)
         {
             text = text.Substring(0, 60) + "...";

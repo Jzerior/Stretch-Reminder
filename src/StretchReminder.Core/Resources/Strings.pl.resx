@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppName" xml:space="preserve">
+    <value>Stretch Reminder</value>
+  </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>Przypominacz o aktywności i zdrowej postawie przy biurku</value>
+  </data>
+  <data name="AlreadyRunning" xml:space="preserve">
+    <value>Aplikacja Stretch Reminder jest już uruchomiona w tle.&#x0a;Sprawdź zasobnik systemowy (obok zegarka pod strzałką).</value>
+  </data>
+  <data name="DefaultReminderMessage" xml:space="preserve">
+    <value>Czas wstać od komputera i rozciągnąć się! 🏃‍♂️&#x0a;Zrób przerwę na szklankę wody i kilka głębokich wdechów.</value>
+  </data>
+  <data name="TrayNotificationStarted" xml:space="preserve">
+    <value>Aplikacja działa w tle. Kliknij ikonę, aby otworzyć ustawienia.</value>
+  </data>
+  <data name="TraySettings" xml:space="preserve">
+    <value>⚙️ Ustawienia</value>
+  </data>
+  <data name="TrayRemindNow" xml:space="preserve">
+    <value>🏃 Przypomnij teraz</value>
+  </data>
+  <data name="TraySnooze1Hour" xml:space="preserve">
+    <value>⏸️ Odłóż o 1 godzinę</value>
+  </data>
+  <data name="TrayResetTimer" xml:space="preserve">
+    <value>🔄 Resetuj odliczanie</value>
+  </data>
+  <data name="TrayExit" xml:space="preserve">
+    <value>❌ Wyjdź</value>
+  </data>
+  <data name="TrayTooltipPaused" xml:space="preserve">
+    <value>Stretch Reminder (wstrzymano)</value>
+  </data>
+  <data name="TrayTooltipNext" xml:space="preserve">
+    <value>Stretch Reminder (następne za: {0} min)</value>
+  </data>
+  <data name="SettingsWindowTitle" xml:space="preserve">
+    <value>Stretch Reminder - Ustawienia</value>
+  </data>
+  <data name="NextReminderIn" xml:space="preserve">
+    <value>Kolejne przypomnienie za:</value>
+  </data>
+  <data name="CountdownPaused" xml:space="preserve">
+    <value>Wstrzymano</value>
+  </data>
+  <data name="CountdownFormat" xml:space="preserve">
+    <value>{0} min {1:D2} sek</value>
+  </data>
+  <data name="IntervalHeader" xml:space="preserve">
+    <value>⏱️ Częstotliwość przypomnień</value>
+  </data>
+  <data name="IntervalDescription" xml:space="preserve">
+    <value>Wybierz, co ile minut ma pojawiać się okienko przypominające o wstaniu od biurka.</value>
+  </data>
+  <data name="QuickSelect" xml:space="preserve">
+    <value>Szybki wybór:</value>
+  </data>
+  <data name="DefaultInterval" xml:space="preserve">
+    <value>60 min (Domyślnie)</value>
+  </data>
+  <data name="MinutesSuffix" xml:space="preserve">
+    <value> min</value>
+  </data>
+  <data name="MessageHeader" xml:space="preserve">
+    <value>💬 Treść powiadomienia</value>
+  </data>
+  <data name="MessageDescription" xml:space="preserve">
+    <value>Napisz własną treść wiadomości wyświetlanej podczas przypomnienia.</value>
+  </data>
+  <data name="VideoHeader" xml:space="preserve">
+    <value>🎬 Filmik w tle przypomnienia</value>
+  </data>
+  <data name="VideoDescription" xml:space="preserve">
+    <value>Wybierz plik wideo (.mp4, .wmv, .webm itp.), który będzie odtwarzany w tle okna.</value>
+  </data>
+  <data name="BrowseVideo" xml:space="preserve">
+    <value>📂 Wybierz plik...</value>
+  </data>
+  <data name="ClearVideo" xml:space="preserve">
+    <value>Usuń wideo</value>
+  </data>
+  <data name="VideoDialogTitle" xml:space="preserve">
+    <value>Wybierz plik wideo do przypomnienia</value>
+  </data>
+  <data name="VideoDialogFilter" xml:space="preserve">
+    <value>Pliki wideo (*.mp4;*.wmv;*.avi;*.webm;*.mov)|*.mp4;*.wmv;*.avi;*.webm;*.mov|Wszystkie pliki (*.*)|*.*</value>
+  </data>
+  <data name="NoVideoPreview" xml:space="preserve">
+    <value>Brak wybranego wideo&#x0a;(użyte zostanie tło domyślne)</value>
+  </data>
+  <data name="MuteVideo" xml:space="preserve">
+    <value>Wycisz dźwięk z filmu</value>
+  </data>
+  <data name="VideoVolume" xml:space="preserve">
+    <value>Głośność filmu:</value>
+  </data>
+  <data name="SystemSettingsHeader" xml:space="preserve">
+    <value>⚙️ Ustawienia systemowe</value>
+  </data>
+  <data name="AutoStartTitle" xml:space="preserve">
+    <value>Uruchamiaj aplikację automatycznie przy starcie Windows</value>
+  </data>
+  <data name="AutoStartDescription" xml:space="preserve">
+    <value>Aplikacja włączy się w tle w zasobniku systemowym po zalogowaniu.</value>
+  </data>
+  <data name="TestReminderButton" xml:space="preserve">
+    <value>▶ Przetestuj przypomnienie teraz</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>💾 Zapisz ustawienia</value>
+  </data>
+  <data name="ReminderTag" xml:space="preserve">
+    <value>CZAS NA ROZCIĄGANIE</value>
+  </data>
+  <data name="ReminderTitle" xml:space="preserve">
+    <value>Wstań od biurka i zrób przerwę!</value>
+  </data>
+  <data name="DoneButton" xml:space="preserve">
+    <value>✓ Zrobione! Rozciągnąłem się</value>
+  </data>
+  <data name="SnoozeButton" xml:space="preserve">
+    <value>⏰ Odłóż o {0} min</value>
+  </data>
+</root>

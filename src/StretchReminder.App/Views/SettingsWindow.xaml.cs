@@ -5,6 +5,7 @@ using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using StretchReminder.App.Services;
+using StretchReminder.Core.Localization;
 using StretchReminder.Core.Models;
 
 namespace StretchReminder.App.Views;
@@ -52,7 +53,6 @@ public partial class SettingsWindow : Window
         base.OnSourceInitialized(e);
         ApplyDarkThemeTitleBar();
 
-        // Dynamiczny limit maksymalnej wysokości, aby okno nigdy nie chowało się pod paskiem zadań
         MaxHeight = SystemParameters.WorkArea.Height * 0.94;
     }
 
@@ -72,33 +72,27 @@ public partial class SettingsWindow : Window
         }
         catch
         {
-            // Ignore if icon generation is unavailable
         }
 
         try
         {
-            // Immersive dark mode (Windows 10 1809+ / Windows 11)
             int darkMode = 1;
             if (DwmSetWindowAttribute(hwnd, DWMWA_USE_IMMERSIVE_DARK_MODE, ref darkMode, sizeof(int)) != 0)
             {
                 DwmSetWindowAttribute(hwnd, DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1, ref darkMode, sizeof(int));
             }
 
-            // Custom Caption Color (Windows 11): #0F172A -> COLORREF 0x002A170F (0x00BBGGRR)
             int captionColor = 0x002A170F;
             DwmSetWindowAttribute(hwnd, DWMWA_CAPTION_COLOR, ref captionColor, sizeof(int));
 
-            // Custom Title Text Color (Windows 11): #F8FAFC -> COLORREF 0x00FCFAF8
             int textColor = 0x00FCFAF8;
             DwmSetWindowAttribute(hwnd, DWMWA_TEXT_COLOR, ref textColor, sizeof(int));
 
-            // Custom Window Border Color (Windows 11): #334155 -> COLORREF 0x00554133
             int borderColor = 0x00554133;
             DwmSetWindowAttribute(hwnd, DWMWA_BORDER_COLOR, ref borderColor, sizeof(int));
         }
         catch
         {
-            // Ignore if OS does not support these attributes
         }
     }
 
@@ -128,7 +122,8 @@ public partial class SettingsWindow : Window
         Dispatcher.Invoke(() =>
         {
             var remaining = _timerService.TimeRemaining;
-            TimeRemainingText.Text = $"{remaining.Hours * 60 + remaining.Minutes} min {remaining.Seconds:D2} sek";
+            int minutes = remaining.Hours * 60 + remaining.Minutes;
+            TimeRemainingText.Text = Strings.CountdownFormat(minutes, remaining.Seconds);
             TimeRemainingText.Foreground = new System.Windows.Media.SolidColorBrush(
                 System.Windows.Media.Color.FromRgb(52, 211, 153)
             );
@@ -155,8 +150,8 @@ public partial class SettingsWindow : Window
     {
         var dialog = new OpenFileDialog
         {
-            Title = "Wybierz plik wideo do przypomnienia",
-            Filter = "Pliki wideo (*.mp4;*.wmv;*.avi;*.webm;*.mov)|*.mp4;*.wmv;*.avi;*.webm;*.mov|Wszystkie pliki (*.*)|*.*",
+            Title = Strings.VideoDialogTitle,
+            Filter = Strings.VideoDialogFilter,
             CheckFileExists = true
         };
 

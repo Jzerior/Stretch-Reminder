@@ -1,6 +1,7 @@
 <Window x:Class="StretchReminder.App.Views.ReminderWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:loc="clr-namespace:StretchReminder.Core.Localization;assembly=StretchReminder.Core"
         Title="Stretch Reminder"
         Width="850" Height="560"
         WindowStartupLocation="CenterScreen"
@@ -150,13 +151,13 @@
                     <Border Background="#10B981" CornerRadius="20" Padding="14,6">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="🏃" FontSize="16" Margin="0,0,6,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="CZAS NA ROZCIĄGANIE" FontSize="12" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" />
+                            <TextBlock Text="{x:Static loc:Strings.ReminderTag}" FontSize="12" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" />
                         </StackPanel>
                     </Border>
                 </StackPanel>
 
                 <TextBlock Grid.Row="1"
-                           Text="Wstań od biurka i zrób przerwę!"
+                           Text="{x:Static loc:Strings.ReminderTitle}"
                            FontSize="28"
                            FontWeight="Bold"
                            Foreground="#F8FAFC"
@@ -173,7 +174,6 @@
                         Margin="0,0,0,28"
                         MaxWidth="650">
                     <TextBlock x:Name="MessageTextBlock"
-                               Text="Czas wstać od komputera i rozciągnąć się! 🏃‍♂️&#x0a;Zrób przerwę na szklankę wody i kilka głębokich wdechów."
                                FontSize="16"
                                Foreground="#CBD5E1"
                                LineHeight="24"
@@ -184,13 +184,12 @@
                 <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button x:Name="DoneButton"
                             Style="{StaticResource PrimaryButtonStyle}"
-                            Content="✓ Zrobione! Rozciągnąłem się"
+                            Content="{x:Static loc:Strings.DoneButton}"
                             Click="DoneButton_Click"
                             Margin="0,0,16,0" />
 
                     <Button x:Name="SnoozeButton"
                             Style="{StaticResource SecondaryButtonStyle}"
-                            Content="⏰ Odłóż o 5 minut"
                             Click="SnoozeButton_Click" />
                 </StackPanel>
             </Grid>

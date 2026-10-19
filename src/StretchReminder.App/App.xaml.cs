@@ -2,6 +2,7 @@ using System.Threading;
 using System.Windows;
 using StretchReminder.App.Services;
 using StretchReminder.App.Views;
+using StretchReminder.Core.Localization;
 
 namespace StretchReminder.App;
 
@@ -20,12 +21,14 @@ public partial class App : Application
 
     protected override void OnStartup(StartupEventArgs e)
     {
+        Strings.Initialize(System.Globalization.CultureInfo.CurrentUICulture);
+
         _mutex = new Mutex(true, AppMutexName, out bool createdNew);
         if (!createdNew)
         {
             MessageBox.Show(
-                "Aplikacja Stretch Reminder jest już uruchomiona w tle.\nSprawdź zasobnik systemowy (obok zegarka pod strzałką).",
-                "Stretch Reminder",
+                Strings.AlreadyRunning,
+                Strings.AppName,
                 MessageBoxButton.OK,
                 MessageBoxImage.Information
             );
@@ -52,8 +55,8 @@ public partial class App : Application
         );
 
         _trayIconManager.ShowNotification(
-            "Stretch Reminder",
-            "Aplikacja działa w tle. Kliknij ikonę, aby otworzyć ustawienia.",
+            Strings.AppName,
+            Strings.TrayNotificationStarted,
             System.Windows.Forms.ToolTipIcon.Info
         );
     }
@@ -64,13 +67,13 @@ public partial class App : Application
 
         if (_timerService.IsPostponed)
         {
-            _trayIconManager.UpdateTooltip("Stretch Reminder (wstrzymano)");
+            _trayIconManager.UpdateTooltip(Strings.TrayTooltipPaused);
         }
         else
         {
             var remaining = _timerService.TimeRemaining;
             int totalMinutes = (int)Math.Ceiling(remaining.TotalMinutes);
-            _trayIconManager.UpdateTooltip($"Stretch Reminder (następne za: {totalMinutes} min)");
+            _trayIconManager.UpdateTooltip(Strings.TrayTooltipNext(totalMinutes));
         }
     }
 
