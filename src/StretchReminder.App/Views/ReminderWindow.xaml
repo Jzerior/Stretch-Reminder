@@ -1,0 +1,199 @@
+<Window x:Class="StretchReminder.App.Views.ReminderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Stretch Reminder"
+        Width="850" Height="560"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        ShowInTaskbar="True"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing">
+
+    <Window.Resources>
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#10B981" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Padding" Value="24,14" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="12"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#059669" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#047857" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#334155" />
+            <Setter Property="Foreground" Value="#E2E8F0" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="Padding" Value="18,12" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="#475569" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="12"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#475569" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#1E293B" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Border CornerRadius="20" Background="#0F172A" ClipToBounds="True" Margin="15">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="25" ShadowDepth="0" Color="#000000" Opacity="0.65" />
+        </Border.Effect>
+
+        <Grid>
+            <MediaElement x:Name="BackgroundVideo"
+                          LoadedBehavior="Manual"
+                          UnloadedBehavior="Manual"
+                          Stretch="UniformToFill"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch"
+                          MediaEnded="BackgroundVideo_MediaEnded"
+                          MediaFailed="BackgroundVideo_MediaFailed"
+                          Visibility="Collapsed" />
+
+            <Grid x:Name="FallbackBackground" Visibility="Visible">
+                <Border>
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#0F172A" Offset="0.0" />
+                            <GradientStop Color="#1E293B" Offset="0.5" />
+                            <GradientStop Color="#064E3B" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+
+                <Ellipse Width="340" Height="340" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.08">
+                    <Ellipse.Fill>
+                        <RadialGradientBrush>
+                            <GradientStop Color="#34D399" Offset="0" />
+                            <GradientStop Color="Transparent" Offset="1" />
+                        </RadialGradientBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Grid>
+
+            <Border Background="#C0090D16" />
+
+            <Button HorizontalAlignment="Right" VerticalAlignment="Top"
+                    Margin="0,18,18,0"
+                    Width="36" Height="36"
+                    Click="CloseButton_Click"
+                    Background="#2A3441" Foreground="#94A3B8"
+                    BorderThickness="0" Cursor="Hand" Content="✕"
+                    FontSize="16" FontWeight="Bold">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="closeBorder" Background="{TemplateBinding Background}" CornerRadius="18">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="closeBorder" Property="Background" Value="#EF4444"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Grid Margin="50,40,50,40" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,16">
+                    <Border Background="#10B981" CornerRadius="20" Padding="14,6">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="🏃" FontSize="16" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="CZAS NA ROZCIĄGANIE" FontSize="12" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <TextBlock Grid.Row="1"
+                           Text="Wstań od biurka i zrób przerwę!"
+                           FontSize="28"
+                           FontWeight="Bold"
+                           Foreground="#F8FAFC"
+                           TextAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,16" />
+
+                <Border Grid.Row="2"
+                        Background="#201E293B"
+                        BorderBrush="#334155"
+                        BorderThickness="1"
+                        CornerRadius="14"
+                        Padding="24,18"
+                        Margin="0,0,0,28"
+                        MaxWidth="650">
+                    <TextBlock x:Name="MessageTextBlock"
+                               Text="Czas wstać od komputera i rozciągnąć się! 🏃‍♂️&#x0a;Zrób przerwę na szklankę wody i kilka głębokich wdechów."
+                               FontSize="16"
+                               Foreground="#CBD5E1"
+                               LineHeight="24"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </Border>
+
+                <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="DoneButton"
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            Content="✓ Zrobione! Rozciągnąłem się"
+                            Click="DoneButton_Click"
+                            Margin="0,0,16,0" />
+
+                    <Button x:Name="SnoozeButton"
+                            Style="{StaticResource SecondaryButtonStyle}"
+                            Content="⏰ Odłóż o 5 minut"
+                            Click="SnoozeButton_Click" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>
