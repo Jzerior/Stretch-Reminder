@@ -1,6 +1,7 @@
 # Stretch Reminder (.NET 9 / WPF)
 
 A Windows desktop utility running in the background system tray that regularly reminds you to stand up from your desk, stretch, and stay active.
+Still in very early developement state
 
 ---
 
@@ -89,4 +90,5 @@ dotnet publish src/StretchReminder.App/StretchReminder.App.csproj `
   -o ./publish
 ```
 The standalone executable `StretchReminder.App.exe` will be generated in `./publish`.
+
 Exe file will be published here when first release-ready version will be reached
