@@ -1,5 +1,8 @@
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using StretchReminder.App.Services;
 using StretchReminder.Core.Models;
@@ -8,6 +11,15 @@ namespace StretchReminder.App.Views;
 
 public partial class SettingsWindow : Window
 {
+    [DllImport("dwmapi.dll", PreserveSig = true)]
+    private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, ref int attrValue, int attrSize);
+
+    private const int DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1 = 19;
+    private const int DWMWA_USE_IMMERSIVE_DARK_MODE = 20;
+    private const int DWMWA_BORDER_COLOR = 34;
+    private const int DWMWA_CAPTION_COLOR = 35;
+    private const int DWMWA_TEXT_COLOR = 36;
+
     private readonly ISettingsService _settingsService;
     private readonly ReminderTimerService _timerService;
     private string? _selectedVideoPath;
@@ -25,6 +37,69 @@ public partial class SettingsWindow : Window
 
         LoadCurrentSettings();
         UpdateCountdownText();
+
+        Loaded += (s, e) =>
+        {
+            Dispatcher.InvokeAsync(() =>
+            {
+                SizeToContent = SizeToContent.Manual;
+            }, System.Windows.Threading.DispatcherPriority.Loaded);
+        };
+    }
+
+    protected override void OnSourceInitialized(EventArgs e)
+    {
+        base.OnSourceInitialized(e);
+        ApplyDarkThemeTitleBar();
+
+        // Dynamiczny limit maksymalnej wysokości, aby okno nigdy nie chowało się pod paskiem zadań
+        MaxHeight = SystemParameters.WorkArea.Height * 0.94;
+    }
+
+    private void ApplyDarkThemeTitleBar()
+    {
+        var helper = new WindowInteropHelper(this);
+        var hwnd = helper.Handle;
+        if (hwnd == IntPtr.Zero) return;
+
+        try
+        {
+            using var icon = IconHelper.CreateAppIcon();
+            Icon = Imaging.CreateBitmapSourceFromHIcon(
+                icon.Handle,
+                Int32Rect.Empty,
+                BitmapSizeOptions.FromEmptyOptions());
+        }
+        catch
+        {
+            // Ignore if icon generation is unavailable
+        }
+
+        try
+        {
+            // Immersive dark mode (Windows 10 1809+ / Windows 11)
+            int darkMode = 1;
+            if (DwmSetWindowAttribute(hwnd, DWMWA_USE_IMMERSIVE_DARK_MODE, ref darkMode, sizeof(int)) != 0)
+            {
+                DwmSetWindowAttribute(hwnd, DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1, ref darkMode, sizeof(int));
+            }
+
+            // Custom Caption Color (Windows 11): #0F172A -> COLORREF 0x002A170F (0x00BBGGRR)
+            int captionColor = 0x002A170F;
+            DwmSetWindowAttribute(hwnd, DWMWA_CAPTION_COLOR, ref captionColor, sizeof(int));
+
+            // Custom Title Text Color (Windows 11): #F8FAFC -> COLORREF 0x00FCFAF8
+            int textColor = 0x00FCFAF8;
+            DwmSetWindowAttribute(hwnd, DWMWA_TEXT_COLOR, ref textColor, sizeof(int));
+
+            // Custom Window Border Color (Windows 11): #334155 -> COLORREF 0x00554133
+            int borderColor = 0x00554133;
+            DwmSetWindowAttribute(hwnd, DWMWA_BORDER_COLOR, ref borderColor, sizeof(int));
+        }
+        catch
+        {
+            // Ignore if OS does not support these attributes
+        }
     }
 
     private void LoadCurrentSettings()
